@@ -336,14 +336,23 @@ class ScriptWindow(QtWidgets.QMainWindow):
         )
         if not file_path:
             return
-        file_path = Path(file_path)
-        if file_path.suffix.lower() not in (".mp4", ".jpeg", ".img"):
-            self.fileLable.setText("Не верный\n формат файла")
+
+        file_path = str(Path(file_path).resolve())
+
+        if not Path(file_path).exists():
+            self.fileLable.setText("Файл не найден!")
             self.fileLable.setStyleSheet("color: red;")
-            return
+            return None
+
+        if Path(file_path).suffix.lower() not in ('.mp4', '.jpeg', '.jpg', '.png', '.img'):
+            self.fileLable.setText("Неверный формат файла")
+            self.fileLable.setStyleSheet("color: red;")
+            return None
+
         self.file_path = file_path
-        self.fileLable.setText(file_path.name)
+        self.fileLable.setText(Path(file_path).name)
         self.fileLable.setStyleSheet("color: white;")
+        return file_path
 
     def add_debug(self, text) -> None:
         """
