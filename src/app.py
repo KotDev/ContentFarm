@@ -491,7 +491,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
                 profile_id=widget.objectName(),
                 file_path=str(self.file_path),
                 descript=descript,
-                js_file=recourse_path("instagram_scripts/upload.js")
+                js_file=recourse_path("instagram_scripts\\upload.js")
             )
             self.completed += self.task_percent
             self.progressBar.setValue(self.completed)
