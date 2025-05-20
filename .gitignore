@@ -1,0 +1,32 @@
+.venv/
+venv/
+
+dist/
+build/
+*.spec
+
+# IDE
+.idea/
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+
+
+src/medias/
+*.log
+*.tmp
+*.swp
+
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# macOS/Linux system files
+.DS_Store
+Thumbs.db
+
+# OS runtime files
+*.bak
+*.old
