@@ -45,7 +45,14 @@ jobs:
         python -c "from PyQt5.QtWidgets import QApplication; print('Qt OK')"
     - name: Copy Node.js
       run: |
-        copy "$(where node)" dist\app\node.exe
+          $nodePath = (Get-Command node).Source
+          if (-not $nodePath) {
+            Write-Error "Node.js не найден в системе"
+            exit 1
+          }
+          New-Item -ItemType Directory -Path "dist\app" -Force
+          Copy-Item -Path $nodePath -Destination "dist\app\node.exe"
+          Write-Host "Node.js скопирован из $nodePath в dist\app\node.exe"
 
     - name: Build .exe with PyInstaller
       run: |
