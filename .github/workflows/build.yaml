@@ -42,16 +42,16 @@ jobs:
 
     - name: Build .exe with PyInstaller
       run: |
-        pyinstaller --onefile ^
-          --paths=src/libs ^
-          --add-data "src/utils;utils" ^
-          --add-data "src/instagram_scripts/upload.js;instagram_scripts" ^
-          --add-data "src/instagram_scripts/logs;instagram_scripts/logs" ^
-          --add-data "node_modules;node_modules" ^
-          --add-data "package.json;." ^
-          --hidden-import=asyncio.base_events ^
-          --exclude-module=logger ^
-          --clean ^
+        pyinstaller --onefile `
+          --paths=src/libs `
+          --add-data "src/utils;utils" `
+          --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
+          --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
+          --add-data "node_modules;node_modules" `
+          --add-data "package.json;." `
+          --hidden-import=asyncio.base_events `
+          --exclude-module=logger `
+          --clean `
           src/app.py
 
     - name: Upload .exe artifact
