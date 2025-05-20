@@ -40,19 +40,28 @@ jobs:
     - name: Install PyInstaller
       run: pip install pyinstaller
 
+    - name: Verify PyQt5 installation
+      run: |
+        python -c "import PyQt5; print(PyQt5.__file__)"
+        python -c "from PyQt5 import QtWidgets; print(QtWidgets.__file__)"
+
     - name: Build .exe with PyInstaller
       run: |
-            pyinstaller `
-              --paths=src/libs `
-              --add-data "src/utils;utils" `
-              --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
-              --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
-              --add-data "node_modules;node_modules" `
-              --add-data "package.json;." `
-              --hidden-import=asyncio.base_events `
-              --exclude-module=logger `
-              --clean `
-              src/app.py
+        pyinstaller `
+          --paths=src/libs `
+          --add-data "src/utils;utils" `
+          --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
+          --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
+          --add-data "node_modules;node_modules" `
+          --add-data "package.json;." `
+          --hidden-import=asyncio.base_events `
+          --hidden-import=PyQt5 `
+          --hidden-import=PyQt5.QtCore `
+          --hidden-import=PyQt5.QtWidgets `
+          --exclude-module=logger `
+          --windowed `
+          --clean `
+          src/app.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
