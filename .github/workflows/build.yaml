@@ -59,10 +59,9 @@ jobs:
             --hidden-import=PyQt5.QtGui `
             --hidden-import=asyncio.base_events `
             --exclude-module=logger `
-            --windowed `
+            --collect-all python3.10.dll `  # ← Добавьте эту строку
             --clean `
             src/app.py
-          
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
