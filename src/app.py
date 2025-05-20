@@ -13,10 +13,12 @@ import sys
 
 
 def recourse_path(file_name: str):
+    """Получение абсолютного пути к ресурсу для работы с PyInstaller"""
     try:
-        _ = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
+        base_path = sys._MEIPASS  # Путь к временной папке PyInstaller
+    except AttributeError:
+        base_path = os.path.abspath(".")  # Обычный путь при разработке
+    print(f"Resource base path: {base_path}")
     return os.path.join(base_path, file_name)
 
 class AsyncWorker(QThread):
