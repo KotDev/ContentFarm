@@ -46,6 +46,12 @@ class InstagramContent(InstagramContentAbstract):
         :param file_path: абсолютный путь к файлу типа str
         :return: None
         """
+        def get_node_path():
+            base_dir = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
+            node_path = os.path.join(base_dir, "_internal", "playwright", "driver", "node.exe")
+            if not os.path.exists(node_path):
+                raise FileNotFoundError(f"Node.js (Playwright) не найден по пути: {node_path}")
+            return node_path
         instagram_logging.info("Запуск функции download_content")
         async with async_playwright() as pl:
             instagram_logging.info("инициализация Gologin класс")
@@ -101,12 +107,14 @@ class InstagramContent(InstagramContentAbstract):
                 try:
                     print(file_path)
                     print(js_file)
+                    node_path = get_node_path()
+                    instagram_logging.info(f"Используемый Node.js: {node_path}")
                     instagram_logging.info("Загрузка видео")
                     response = requests.get(f"http://{debug_address}/json/version")
                     ws_url = response.json()["webSocketDebuggerUrl"]
                     process = subprocess.Popen(
                         [
-                            "node",
+                            node_path,
                             js_file,
                             ws_url,
                             "input[type='file']",
