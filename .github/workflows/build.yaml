@@ -51,6 +51,7 @@ jobs:
             --add-data "src/utils;utils" `
             --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
             --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
+            --add-data "/src/.sentry-native;.sentry-native `
             --add-data "node_modules;node_modules" `
             --add-data "package.json;." `
             --hidden-import=PyQt5 `
