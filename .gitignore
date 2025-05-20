@@ -21,6 +21,7 @@ src/medias/
 
 node_modules/
 npm-debug.log*
+package-lock.json
 
 # macOS/Linux system files
 .DS_Store
