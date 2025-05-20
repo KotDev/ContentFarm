@@ -7,6 +7,8 @@ from gologin import GoLogin
 from playwright.async_api import async_playwright
 from .logger import instagram_logging
 import subprocess
+import os
+import sys
 
 
 class InstagramContent(InstagramContentAbstract):
