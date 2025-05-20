@@ -43,27 +43,11 @@ jobs:
     - name: Verify PyQt5 installation
       run: |
         python -c "from PyQt5.QtWidgets import QApplication; print('Qt OK')"
-    - name: Copy Node.js
-      run: |
-            $nodePath = (Get-Command node).Source
-            if (-not $nodePath) {
-              Write-Error "Node.js не найден в системе"
-              exit 1
-            }
-            # Создаем dist/app если не существует
-            New-Item -ItemType Directory -Path "dist\app" -Force
-            Copy-Item -Path $nodePath -Destination "dist\app\node.exe"
-            Write-Host "Node.js скопирован в dist\app\node.exe"
 
     - name: Build .exe with PyInstaller
       run: |
-          if (Test-Path "dist\app") {
-            Remove-Item -Path "dist\app\*" -Recurse -Force
-          }
-            
           pyinstaller `
             --paths=src/libs `
-            --add-data "dist\app\node.exe;." `
             --add-data "src/utils;utils" `
             --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
             --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
