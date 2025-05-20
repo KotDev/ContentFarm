@@ -487,11 +487,14 @@ class ScriptWindow(QtWidgets.QMainWindow):
             self.add_debug(
                 f"Профиль - {widget.text()} начал загрузку видео {Path(self.file_path).name}"
             )
+            relative_path = "_internal/instagram_scripts/upload.js"
+            absolute_path = os.path.abspath(relative_path)
+            print(absolute_path)
             await self.farm.instagram.download_content(
                 profile_id=widget.objectName(),
                 file_path=str(self.file_path),
                 descript=descript,
-                js_file=recourse_path("instagram_scripts\\upload.js")
+                js_file=absolute_path
             )
             self.completed += self.task_percent
             self.progressBar.setValue(self.completed)
