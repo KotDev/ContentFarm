@@ -485,7 +485,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
         """
         try:
             self.add_debug(
-                f"Профиль - {widget.text()} начал загрузку видео {self.file_path.name}"
+                f"Профиль - {widget.text()} начал загрузку видео {Path(self.file_path).name}"
             )
             await self.farm.instagram.download_content(
                 profile_id=widget.objectName(),
@@ -496,7 +496,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
             self.completed += self.task_percent
             self.progressBar.setValue(self.completed)
             self.add_debug(
-                f"Профиль - {widget.text()} загрузил видео {self.file_path.name}"
+                f"Профиль - {widget.text()} загрузил видео {Path(self.file_path).name}"
             )
         except Exception as e:
             if "402 Payment Required" in str(e):
