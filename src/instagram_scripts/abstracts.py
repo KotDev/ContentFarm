@@ -1,9 +1,10 @@
 import abc
 from abc import ABC
-from gologin import GoLogin
+from pathlib import Path
+
 
 class InstagramContentAbstract(ABC):
 
     @abc.abstractmethod
-    async def download_video(self, video_name: str, profile_id: str, descript: str):
+    async def download_content(self, profile_id: str, descript: str, file_path: Path, js_file):
         pass

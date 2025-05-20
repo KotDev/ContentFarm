@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainScriptWindow</class>
+ <widget class="QMainWindow" name="MainScriptWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Script</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                              stop:0 #f5f7fa, stop:1 #c3cfe2);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #2c3e50;
+}
+
+/* Синие кнопки */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #2980b9, stop:1 #3498db);
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+}
+
+/* Динамически создаваемые чекбоксы */
+QCheckBox {
+    background: transparent;
+    color: #2c3e50;
+    font-size: 13px;
+    padding: 4px;
+}
+
+/* Комбобоксы */
+QComboBox {
+    background-color: white;
+    color: #2c3e50;
+    border: 1px solid #3498db;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+/* Поля ввода */
+QLineEdit, QTextEdit, QPlainTextEdit, QTextBrowser {
+    background-color: white;
+    color: #2c3e50;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+}
+
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus, QTextBrowser:focus {
+    border-color: #3498db;
+}
+
+/* Прогресс бар */
+QProgressBar {
+    border: 1px solid #3498db;
+    border-radius: 6px;
+    height: 20px;
+    text-align: center;
+    color: #2c3e50;
+    font-weight: bold;
+    background-color: white;
+}
+
+QProgressBar::chunk {
+    background-color: #3498db;
+    border-radius: 6px;
+}
+
+/* Метки */
+QLabel {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Метка файла */
+QLabel#fileLable {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                              stop:0 #f5f7fa, stop:1 #c3cfe2);
+    border: 2px dashed #3498db;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+/* Кнопка выбора файла */
+QToolButton#FileButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QToolButton#FileButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                              stop:0 #2980b9, stop:1 #3498db);
+}
+
+/* Специальные стили для кнопок соцсетей - делаем их одинаковыми */
+QPushButton#InstagramButton,
+QPushButton#YotubeButton,
+QPushButton#TikTokButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+    color: white;
+}
+
+QPushButton#InstagramButton:hover,
+QPushButton#YotubeButton:hover,
+QPushButton#TikTokButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #2980b9, stop:1 #3498db);
+}
+
+/* Скроллбар */
+QScrollBar:vertical {
+    border: none;
+    background: white;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #d6e4f0;
+    border-radius: 4px;
+    min-height: 20px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+    background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="InstagramButton">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>500</y>
+      <width>191</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Instagram</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="FileButton">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>330</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="YotubeButton">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>440</y>
+      <width>191</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Yotube</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="TikTokButton">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>380</y>
+      <width>191</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Tik Tok</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="RloudButton">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>20</y>
+      <width>152</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reloud</string>
+    </property>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>201</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>197</width>
+       <height>447</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>40</y>
+      <width>61</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>debug</string>
+    </property>
+   </widget>
+   <widget class="QCommandLinkButton" name="commandLinkButton">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>70</y>
+      <width>152</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>API</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fileLable">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>280</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>File</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>490</y>
+      <width>511</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="AllCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>0</y>
+      <width>90</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* Главное окно */
+MainScriptWindow {
+    background-color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Кнопки */
+QPushButton {
+    background-color: white;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+QPushButton:hover {
+    background-color: #e6f0ff;
+}
+
+QPushButton:pressed {
+    background-color: #d0e7ff;
+}
+
+/* Кнопки соцсетей — такие же как обычные */
+QPushButton#InstagramButton,
+QPushButton#YoutubeButton,
+QPushButton#TikTokButton,
+QPushButton#RloudButton {
+    background-color: white;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+}
+
+/* Область с профилями */
+QScrollArea {
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    background-color: white;
+}
+
+/* Комбобокс */
+QComboBox#FilterProfileBox {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    background-color: white;
+    color: black;
+}
+
+/* Текстовые поля */
+QPlainTextEdit, QTextBrowser, QLineEdit, QTextEdit {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: white;
+    color: black;
+    font-size: 13px;
+}
+
+/* Метки */
+QLabel {
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Прогресс бар */
+QProgressBar {
+    border: 1px solid #007BFF;
+    border-radius: 6px;
+    height: 20px;
+    text-align: center;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+QProgressBar::chunk {
+    background-color: #007BFF;
+    border-radius: 6px;
+}
+
+/* Кнопка API */
+QCommandLinkButton#commandLinkButton {
+    background-color: white;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+QCommandLinkButton#commandLinkButton:hover {
+    background-color: #e6f0ff;
+}
+
+/* Кнопка выбора файла */
+QToolButton#FileButton {
+    background-color: white;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QToolButton#FileButton:hover {
+    background-color: #e6f0ff;
+}
+
+/* Метка файла */
+QLabel#fileLable {
+    border: 2px dashed #007BFF;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007BFF;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>All</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>140</y>
+      <width>251</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>120</y>
+      <width>91</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Descriptions</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="errorLable">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>530</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>70</y>
+      <width>261</width>
+      <height>411</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="browser">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>20</y>
+      <width>152</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>open browser</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="FilterProfileBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>0</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

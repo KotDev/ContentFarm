@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConnectAPIWindow</class>
+ <widget class="QMainWindow" name="ConnectAPIWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>APIConnect</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Стиль главного окна */
+ConnectAPIWindow {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                              stop:0 #f5f7fa, stop:1 #c3cfe2);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Поле для ввода API ключа */
+QTextEdit#API_text {
+    background-color: white;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+QTextEdit#API_text:focus {
+    border-color: #3498db;
+    /* Альтернатива box-shadow - светлая обводка */
+    border-width: 2px;
+    border-style: solid;
+    border-color: #3498db #3498db #3498db #3498db;
+}
+
+QTextEdit#API_text:disabled {
+    background-color: #f0f0f0;
+    color: #a0a0a0;
+    border-color: #d0d0d0;
+}
+
+/* Метка */
+QLabel#label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Кнопка Connect */
+QCommandLinkButton#ConnectButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+QCommandLinkButton#ConnectButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #2980b9, stop:1 #3498db);
+}
+
+QCommandLinkButton#ConnectButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                              stop:0 #3498db, stop:1 #2980b9);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextEdit" name="API_text">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>180</y>
+      <width>611</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="tabletTracking">
+     <bool>false</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QCommandLinkButton" name="ConnectButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>260</y>
+      <width>291</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>70</width>
+      <height>70</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>127</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>API key</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

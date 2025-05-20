@@ -1,0 +1,117 @@
+2025-05-17 15:56:26 - Instagram_INFO - CRITICAL - При старте браузера произошла ошибка HTTPSConnectionPool(host='geo.myip.link', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 402 Payment Required'))) - HTTPSConnectionPool(host='geo.myip.link', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 402 Payment Required')))
+2025-05-17 17:17:27 - Instagram_INFO - CRITICAL - При старте браузера произошла ошибка HTTPSConnectionPool(host='geo.myip.link', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 402 Payment Required'))) - HTTPSConnectionPool(host='geo.myip.link', port=443): Max retries exceeded with url: / (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 402 Payment Required')))
+2025-05-17 19:35:00 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Timeout 2000ms exceeded.
+Call log:
+  - waiting for locator("div.x78zum5.x1q0g3np.xdko459 > button") to be visible
+
+2025-05-17 19:44:17 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas") to be visible
+
+2025-05-17 19:44:53 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Timeout 2000ms exceeded.
+Call log:
+  - waiting for locator("div.x78zum5.x1q0g3np.xdko459 > button") to be visible
+
+2025-05-17 19:53:24 - Instagram_INFO - CRITICAL - Ошибка скрипта: No active exception to reraise
+2025-05-17 20:01:57 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas") to be visible
+
+2025-05-17 20:04:17 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas") to be visible
+
+2025-05-19 14:16:42 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for locator("div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div")
+    - locator resolved to <div class="x1n2onr6 x6s0dn4 x78zum5">…</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    11 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+2025-05-19 14:16:52 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for locator("div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div")
+    - locator resolved to <div class="x1n2onr6 x6s0dn4 x78zum5">…</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    11 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+2025-05-19 14:19:53 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for locator("div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div")
+    - locator resolved to <div class="x1n2onr6 x6s0dn4 x78zum5">…</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    11 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+2025-05-19 14:20:11 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for locator("div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div")
+
+2025-05-19 14:32:04 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas") to be visible
+    - waiting for" https://www.instagram.com/" navigation to finish...
+    - navigated to "https://www.instagram.com/"
+
+2025-05-19 14:32:05 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("img[alt='Animated checkmark']") to be visible
+
+2025-05-19 14:41:27 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.click: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div")
+    - locator resolved to <div class="x1n2onr6 x6s0dn4 x78zum5">…</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    491 × waiting for element to be visible, enabled and stable
+        - element is not visible
+      - retrying click action
+        - waiting 500ms
+    - waiting for" https://www.instagram.com/" navigation to finish...
+    - navigated to "https://www.instagram.com/"
+    - waiting for element to be visible, enabled and stable
+  - element was detached from the DOM, retrying
+
+2025-05-19 14:41:28 - Instagram_INFO - CRITICAL - Ошибка скрипта: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas") to be visible
+
