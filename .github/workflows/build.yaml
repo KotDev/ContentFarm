@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Обновлено до v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -20,7 +20,7 @@ jobs:
         python-version: "3.10"
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4  # Обновлено до v4
       with:
         node-version: '18'
 
@@ -50,7 +50,7 @@ jobs:
           src/app.py
 
     - name: Upload .exe artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Исправлено на v4
       with:
         name: desktop-app-windows
         path: dist/*.exe
