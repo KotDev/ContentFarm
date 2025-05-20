@@ -43,11 +43,15 @@ jobs:
     - name: Verify PyQt5 installation
       run: |
         python -c "from PyQt5.QtWidgets import QApplication; print('Qt OK')"
+    - name: Copy Node.js
+      run: |
+        copy "$(where node)" dist\app\node.exe
 
     - name: Build .exe with PyInstaller
       run: |
           pyinstaller `
             --paths=src/libs `
+            --add-data "dist\app\node.exe;." `
             --add-data "src/utils;utils" `
             --add-data "src/instagram_scripts/upload.js;instagram_scripts" `
             --add-data "src/instagram_scripts/logs;instagram_scripts/logs" `
