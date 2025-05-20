@@ -108,7 +108,7 @@ class InstagramContent(InstagramContentAbstract):
                             js_file,
                             ws_url,
                             "input[type='file']",
-                            str(file_path),
+                            file_path,
                         ],
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,

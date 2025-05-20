@@ -341,8 +341,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
             self.fileLable.setText("Не верный\n формат файла")
             self.fileLable.setStyleSheet("color: red;")
             return
-        print(file_path)
-        self.file_path = recourse_path(str(file_path))
+        self.file_path = file_path
         self.fileLable.setText(file_path.name)
         self.fileLable.setStyleSheet("color: white;")
 
