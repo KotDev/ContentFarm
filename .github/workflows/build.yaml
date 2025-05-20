@@ -54,8 +54,8 @@ jobs:
               --clean `
               src/app.py
 
-    - name: Upload .exe artifact
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: desktop-app-windows
-        path: dist/*.exe
+        path: dist/app
