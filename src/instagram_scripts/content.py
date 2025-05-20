@@ -100,6 +100,7 @@ class InstagramContent(InstagramContentAbstract):
                 )
                 try:
                     print(file_path)
+                    print(js_file)
                     instagram_logging.info("Загрузка видео")
                     response = requests.get(f"http://{debug_address}/json/version")
                     ws_url = response.json()["webSocketDebuggerUrl"]
