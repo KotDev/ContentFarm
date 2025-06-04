@@ -102,7 +102,7 @@ class InstagramContent(InstagramContentAbstract):
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek button._acan._acap._acas",
+                    'div.x9f619 button:has-text("Select from computer")',
                     timeout=800000,
                     state="visible",
                 )
@@ -143,19 +143,19 @@ class InstagramContent(InstagramContentAbstract):
                 if element:
                     await element.click()
                 await page.wait_for_selector(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek div.x1i10hfl.xjqpnuy.xa49m3k.xqeqjp1",
+                    'button:has-text("Next")',
                     timeout=900000,
                 )
                 await page.click(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek div.x1i10hfl.xjqpnuy.xa49m3k.xqeqjp1",
+                    'button:has-text("Next")',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek div.x1i10hfl.xjqpnuy.xa49m3k.xqeqjp1",
+                    'button:has-text("Next")',
                     timeout=900000,
                 )
                 await page.click(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek div.x1i10hfl.xjqpnuy.xa49m3k.xqeqjp1",
+                    'button:has-text("Next")',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
@@ -165,7 +165,7 @@ class InstagramContent(InstagramContentAbstract):
                     'div[data-lexical-editor="true"]', descript, timeout=900000
                 )
                 await page.click(
-                    "div.x9f619.x13lgxp2.x5pf9jr.x1n2onr6.x1plvlek div.x1i10hfl.xjqpnuy.xa49m3k.xqeqjp1",
+                    'div.x9f619 div[role="button"]:has-text("Share")',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
