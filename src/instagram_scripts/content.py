@@ -102,7 +102,7 @@ class InstagramContent(InstagramContentAbstract):
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    'div.x9f619 button:has-text("Select from computer")',
+                    'xpath=//div[contains(@class, "x9f619")]//button[contains(text(), "Select from computer")]',
                     timeout=800000,
                     state="visible",
                 )
@@ -143,19 +143,19 @@ class InstagramContent(InstagramContentAbstract):
                 if element:
                     await element.click()
                 await page.wait_for_selector(
-                    'button:has-text("Next")',
+                    'xpath=//div[@role="button"][contains(text(), "Next")]',
                     timeout=900000,
                 )
                 await page.click(
-                    'button:has-text("Next")',
+                    'xpath=//div[@role="button"][contains(text(), "Next")]',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    'button:has-text("Next")',
+                    'xpath=//div[@role="button"][contains(text(), "Next")]',
                     timeout=900000,
                 )
                 await page.click(
-                    'button:has-text("Next")',
+                    'xpath=//div[@role="button"][contains(text(), "Next")]',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
@@ -165,7 +165,7 @@ class InstagramContent(InstagramContentAbstract):
                     'div[data-lexical-editor="true"]', descript, timeout=900000
                 )
                 await page.click(
-                    'div.x9f619 div[role="button"]:has-text("Share")',
+                    'xpath=//div[@role="button"][contains(text(), "Share")]',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
