@@ -71,12 +71,3 @@ class FarmContents(FarmAbstract):
             finally:
                 await browser.close()
                 gl.stop()
-
-
-# async def main():
-# farm = FarmContents(API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODFjOWIyYjYxYzk2MjBhYjAxYTQ0MzAiLCJ0eXBlIjoiZGV2Iiwiand0aWQiOiI2ODFjOWI0ZjgxMThjZjY1YTBiZWY0NDAifQ.pPUl_LWrP5R_kpGdAsUC_I-Sb7xTmjHvnGITCAuDcCI")
-# profiles = await farm.get_profiles()
-#  print([f"{i['name']} | {i['id']}" for i in profiles["profiles"]])
-#   await farm.instagram.download_video(video_name="IMG_4384.MP4", profile_id="681c9b2c61c9620ab01a4488", descript="OZON: 1305778952\nWB: 179742155", file_path="/home/danil/PycharmProjects/ContentFarm/src/medias/instagram_media/IMG_4384.MP4")
-
-# asyncio.run(main())
