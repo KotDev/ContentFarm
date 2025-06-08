@@ -168,9 +168,29 @@ class InstagramContent(InstagramContentAbstract):
                     'xpath=//div[@role="button"][contains(text(), "Share")]',
                     timeout=900000,
                 )
-                await page.wait_for_selector(
-                    "img[alt='Animated checkmark']", timeout=900000
-                )
+                max_iter = 10
+                for attempt in range(1, max_iter + 1):
+                    try:
+                        await page.wait_for_selector(
+                            "img[alt='Animated checkmark']", 
+                            timeout=9000 * attempt,
+                        )
+                        instagram_logging.info("Видео успешно загружено")
+                        break
+                    except Exception as e:
+
+                        try_again_button = page.locator('button:has-text("Try again"), button >> text="Try again"')
+                        if await try_again_button.is_visible(timeout=5000):
+                            instagram_logging.info("Обнаружена ошибка - кликаем Try again")
+                            await try_again_button.click()
+                            await page.wait_for_timeout(3000)
+                        else:
+                            instagram_logging.warning(f"Попытка {attempt}: Не найдено ни завершения, ни ошибки")
+                            
+                        instagram_logging.info(f"Попытка {attempt}/{max_iter} - осталось {max_iter - attempt} попыток")
+                else:
+                    instagram_logging.error("Превышено максимальное количество попыток")
+                    raise Exception("Не удалось дождаться завершения загрузки")
                 try:
                     gl.stop()
                     instagram_logging.info("Браузер закрыт")
