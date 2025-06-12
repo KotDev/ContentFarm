@@ -1,4 +1,4 @@
-import time
+import asyncio
 
 import requests
 
@@ -136,7 +136,7 @@ class InstagramContent(InstagramContentAbstract):
                     instagram_logging.error(f"Ошибка загрузки stdout - {e.stdout}")
                     instagram_logging.error(f"Ошибка загрузки stderr - {e.stderr}")
                     raise
-                time.sleep(10)
+                await asyncio.sleep(10)
                 element = await page.query_selector(
                     "div.x78zum5.x1q0g3np.xdko459 > button"
                 )
