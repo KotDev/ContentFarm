@@ -102,7 +102,7 @@ class InstagramContent(InstagramContentAbstract):
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    'xpath=//div[contains(@class, "x9f619")]//button[contains(text(), "Select from computer")]',
+                    "// *[text() = 'Select from computer']",
                     timeout=800000,
                     state="visible",
                 )
