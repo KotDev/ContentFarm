@@ -98,7 +98,7 @@ class InstagramContent(InstagramContentAbstract):
                     f"Переход по адрессу {debug_address + '/' + self.URL}"
                 )
                 await page.click(
-                    "div.x9f619.xjbqb8w.x78zum5.x168nmei.x13lgxp2.x5pf9jr.xo71vjh.xixxii4.x13vifvy.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1.x1dr59a3.xeq5yr9.x1n327nk > div > div > div > div > div.x1iyjqo2.xh8yej3 > div:nth-child(7) > div",
+                    'svg path[d^="M2 12"]:has(~ line[x1="6.545"])',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
