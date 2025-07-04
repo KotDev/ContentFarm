@@ -165,7 +165,7 @@ class InstagramContent(InstagramContentAbstract):
                     'div[data-lexical-editor="true"]', descript, timeout=900000
                 )
                 await page.click(
-                    "// *[text() = 'Share']",
+                    'xpath=//div[@role="button"][contains(text(), "Share")]',
                     timeout=900000,
                 )
                 max_iter = 10
