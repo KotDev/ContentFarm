@@ -179,11 +179,10 @@ class InstagramContent(InstagramContentAbstract):
                         break
                     except Exception as e:
 
-                        try_again_button = page.locator('button:has-text("Try again"), button >> text="Try again"')
+                        try_again_button = page.locator("// *[text() = 'Try again']")
                         if await try_again_button.is_visible(timeout=5000):
                             instagram_logging.info("Обнаружена ошибка - кликаем Try again")
                             await try_again_button.click()
-                            await page.wait_for_timeout(3000)
                         else:
                             instagram_logging.warning(f"Попытка {attempt}: Не найдено ни завершения, ни ошибки")
                             
