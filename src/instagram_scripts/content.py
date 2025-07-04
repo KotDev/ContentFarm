@@ -143,19 +143,19 @@ class InstagramContent(InstagramContentAbstract):
                 if element:
                     await element.click()
                 await page.wait_for_selector(
-                    'xpath=//div[@role="button"][contains(text(), "Next")]',
+                    "// *[text() = 'Next']",
                     timeout=900000,
                 )
                 await page.click(
-                    'xpath=//div[@role="button"][contains(text(), "Next")]',
+                    "// *[text() = 'Next']",
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    'xpath=//div[@role="button"][contains(text(), "Next")]',
+                    "// *[text() = 'Next']",
                     timeout=900000,
                 )
                 await page.click(
-                    'xpath=//div[@role="button"][contains(text(), "Next")]',
+                    "// *[text() = 'Next']",
                     timeout=900000,
                 )
                 await page.wait_for_selector(
@@ -165,7 +165,7 @@ class InstagramContent(InstagramContentAbstract):
                     'div[data-lexical-editor="true"]', descript, timeout=900000
                 )
                 await page.click(
-                    'xpath=//div[@role="button"][contains(text(), "Share")]',
+                    "// *[text() = 'Share']",
                     timeout=900000,
                 )
                 max_iter = 10
