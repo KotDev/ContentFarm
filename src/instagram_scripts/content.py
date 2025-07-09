@@ -150,7 +150,7 @@ class InstagramContent(InstagramContentAbstract):
                 if element:
                     await element.click(force=True)
                 next_button = await page.wait_for_selector(
-                    "// *[text() = 'Next']",
+                    "//div[text()='Next' and contains(@class, 'x1n2onr6') and contains(@class, 'x1n5bzlp') and not(contains(@class, 'x1obq294')) and not(contains(@class, 'x5a5i1n')) and not(contains(@class, 'xde0f50'))]",
                     timeout=900000,
                 )
                 if next_button:
@@ -159,7 +159,7 @@ class InstagramContent(InstagramContentAbstract):
                     raise Exception("Кнопка 'Next' не найдена")
 
                 next_button_2 = await page.wait_for_selector(
-                    "// *[text() = 'Next']",
+                    "//div[text()='Next' and contains(@class, 'x1n2onr6') and contains(@class, 'x1n5bzlp') and not(contains(@class, 'x1obq294')) and not(contains(@class, 'x5a5i1n')) and not(contains(@class, 'xde0f50'))]",
                     timeout=900000,
                 )
                 if next_button_2:
