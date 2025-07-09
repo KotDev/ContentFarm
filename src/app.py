@@ -457,13 +457,12 @@ class ScriptWindow(QtWidgets.QMainWindow):
         self.completed = 0
         self.progressBar.setValue(self.completed)
 
-        # Собираем профили
-        selected_widgets = []
-        for i in range(layout.count()):
-            item = layout.itemAt(i)
-            widget = item.widget()
-            if isinstance(widget, CustomCheckBox) and widget.isChecked():
-                selected_widgets.append(widget)
+        selected_widgets = [
+            layout.itemAt(i).widget()
+            for i in range(layout.count())
+            if isinstance(layout.itemAt(i).widget(), CustomCheckBox)
+               and layout.itemAt(i).widget().isChecked()
+        ]
 
         if not selected_widgets:
             self.add_debug("Нет выбранных профилей для загрузки.")
@@ -472,22 +471,21 @@ class ScriptWindow(QtWidgets.QMainWindow):
 
         self.task_percent = 100 // len(selected_widgets)
         descript = self.plainTextEdit.toPlainText().strip()
-        BATCH_SIZE = 2
-        profile_ids = []
-        for i in range(0, len(selected_widgets), BATCH_SIZE):
-            batch = selected_widgets[i:i + BATCH_SIZE]
-            tasks = [
-                self.instagram_download_content(descript=descript, widget=widget)
-                for widget in batch
-            ]
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-            for widget, result in zip(batch, results):
-                profile_ids.append(widget.objectName())
-                if isinstance(result, Exception):
-                    self.add_debug(f"❌ Профиль {widget.text()} завершился с ошибкой: {str(result)}")
-                else:
-                    self.add_debug(f"✅ Профиль {widget.text()} успешно завершил загрузку.")
 
+        semaphore = asyncio.Semaphore(2)
+
+        async def run_with_limit(widget):
+            async with semaphore:
+                try:
+                    await self.instagram_download_content(descript=descript, widget=widget)
+                    self.add_debug(f"✅ Профиль {widget.text()} успешно завершил загрузку.")
+                except Exception as e:
+                    self.add_debug(f"❌ Профиль {widget.text()} завершился с ошибкой: {str(e)}")
+
+        tasks = [asyncio.create_task(run_with_limit(widget)) for widget in selected_widgets]
+        await asyncio.gather(*tasks)
+
+        profile_ids = [w.objectName() for w in selected_widgets]
         self.farm.gl.refreshProfilesFingerprint(profileIds=profile_ids)
         self.InstagramButton.setEnabled(True)
 
@@ -520,7 +518,10 @@ class ScriptWindow(QtWidgets.QMainWindow):
                 return  # успешно — выходим
             except Exception as e:
                 self.add_debug(f"⚠️ Ошибка на попытке {attempt} профиля {widget.text()}: {str(e)}")
-                if attempt == MAX_ATTEMPTS:
+                if "Target page, context or browser has been closed" in str(e):
+                    self.add_debug(f"⚠️ Браузер {widget.text()} был закрыт вручную")
+                    return
+                elif attempt == MAX_ATTEMPTS:
                     raise
 
 

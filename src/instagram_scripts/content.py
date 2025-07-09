@@ -142,10 +142,10 @@ class InstagramContent(InstagramContentAbstract):
                     raise
                 await asyncio.sleep(10)
                 element = await page.query_selector(
-                    "div.x78zum5.x1q0g3np.xdko459 > button"
+                    "//*[translate(text(), 'OK', 'ok') = 'ok']"
                 )
                 if element:
-                    await element.click()
+                    await element.click(force=True)
                 next_button = await page.wait_for_selector(
                     "// *[text() = 'Next']",
                     timeout=900000,
@@ -194,7 +194,7 @@ class InstagramContent(InstagramContentAbstract):
                         try_again_button = page.locator("// *[text() = 'Try again']")
                         if await try_again_button.is_visible(timeout=5000):
                             instagram_logging.info("Обнаружена ошибка - кликаем Try again")
-                            await try_again_button.click()
+                            await try_again_button.click(force=True)
                         else:
                             instagram_logging.warning(f"Попытка {attempt}: Не найдено ни завершения, ни ошибки")
                             
