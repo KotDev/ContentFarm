@@ -127,10 +127,14 @@ class InstagramContent(InstagramContentAbstract):
                         text=True,
                     )
                     try:
-                        _, _ = process.communicate(timeout=5)
+                        stdout, stderr = process.communicate(timeout=20)
                         instagram_logging.info("Процесс загрузки завершен")
+                        if process.returncode != 0:
+                            instagram_logging.error(f"stderr upload.js: {stderr}")
+                            raise Exception(f"upload.js вернул ошибку: {stderr or 'Нет stderr'}")
+                        instagram_logging.info("Видео отправленно без ошибок")
                     except subprocess.TimeoutExpired:
-                        instagram_logging.info("Процесс загрузки убит")
+                        instagram_logging.info("Процесс загрузки убит, загрузка видео зависла")
                         process.kill()
                 except subprocess.CalledProcessError as e:
                     instagram_logging.error(f"Ошибка загрузки stdout - {e.stdout}")
@@ -142,32 +146,40 @@ class InstagramContent(InstagramContentAbstract):
                 )
                 if element:
                     await element.click()
-                await page.wait_for_selector(
+                next_button = await page.wait_for_selector(
                     "// *[text() = 'Next']",
                     timeout=900000,
                 )
-                await page.click(
+                if next_button:
+                    await next_button.click()
+                else:
+                    raise Exception("Кнопка 'Next' не найдена")
+
+                next_button_2 = await page.wait_for_selector(
                     "// *[text() = 'Next']",
                     timeout=900000,
                 )
-                await page.wait_for_selector(
-                    "// *[text() = 'Next']",
-                    timeout=900000,
-                )
-                await page.click(
-                    "// *[text() = 'Next']",
-                    timeout=900000,
-                )
-                await page.wait_for_selector(
+                if next_button_2:
+                    await next_button_2.click()
+                else:
+                    raise Exception("2 кнопка 'Next' не найдена")
+                fill_descript = await page.wait_for_selector(
                     'div[data-lexical-editor="true"]', timeout=900000
                 )
-                await page.fill(
-                    'div[data-lexical-editor="true"]', descript, timeout=900000
-                )
-                await page.click(
-                    'xpath=//div[@role="button"][contains(text(), "Share")]',
-                    timeout=900000,
-                )
+                if fill_descript:
+                    await page.fill(
+                        'div[data-lexical-editor="true"]', descript, timeout=900000
+                    )
+                    share = await page.wait_for_selector(
+                        'xpath=//div[@role="button"][contains(text(), "Share")]',
+                        timeout=900000,
+                    )
+                    if share:
+                        await share.click()
+                    else:
+                        Exception("Кнопка 'Share' не найдена")
+                else:
+                    raise Exception("Поле для описания не найдена")
                 max_iter = 10
                 for attempt in range(1, max_iter + 1):
                     try:

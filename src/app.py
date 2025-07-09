@@ -448,32 +448,47 @@ class ScriptWindow(QtWidgets.QMainWindow):
         :return: None
         """
         layout = self.scrollAreaWidgetContents.layout()
-        if not layout:
+        if not layout or not self.check_any_profiles(layout) or not self.chek_file_path():
             return
-        elif not self.check_any_profiles(layout):
-            return
-        elif not self.chek_file_path():
-            return
+
         self.clear_debug()
         self.InstagramButton.setEnabled(False)
-        tasks = []
+
         self.completed = 0
         self.progressBar.setValue(self.completed)
-        profiles_ids = []
+
+        # Собираем профили
+        selected_widgets = []
         for i in range(layout.count()):
             item = layout.itemAt(i)
             widget = item.widget()
             if isinstance(widget, CustomCheckBox) and widget.isChecked():
-                descript = self.plainTextEdit.toPlainText().strip()
-                self.add_debug(f"Профиль - {widget.text()} открывает браузер")
-                profiles_ids.append(widget.objectName())
-                task = asyncio.create_task(
-                    self.instagram_download_content(descript=descript, widget=widget)
-                )
-                tasks.append(task)
-        self.task_percent: int = 100 // len(tasks) if len(tasks) != 0 else 100
-        await asyncio.gather(*tasks)
-        self.farm.gl.refreshProfilesFingerprint(profileIds=profiles_ids)
+                selected_widgets.append(widget)
+
+        if not selected_widgets:
+            self.add_debug("Нет выбранных профилей для загрузки.")
+            self.InstagramButton.setEnabled(True)
+            return
+
+        self.task_percent = 100 // len(selected_widgets)
+        descript = self.plainTextEdit.toPlainText().strip()
+        BATCH_SIZE = 2
+        profile_ids = []
+        for i in range(0, len(selected_widgets), BATCH_SIZE):
+            batch = selected_widgets[i:i + BATCH_SIZE]
+            tasks = [
+                self.instagram_download_content(descript=descript, widget=widget)
+                for widget in batch
+            ]
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for widget, result in zip(batch, results):
+                profile_ids.append(widget.objectName())
+                if isinstance(result, Exception):
+                    self.add_debug(f"❌ Профиль {widget.text()} завершился с ошибкой: {str(result)}")
+                else:
+                    self.add_debug(f"✅ Профиль {widget.text()} успешно завершил загрузку.")
+
+        self.farm.gl.refreshProfilesFingerprint(profileIds=profile_ids)
         self.InstagramButton.setEnabled(True)
 
     async def instagram_download_content(self, descript: str, widget):
@@ -483,31 +498,30 @@ class ScriptWindow(QtWidgets.QMainWindow):
         :param widget: виджет chekBox
         :return: None
         """
-        try:
-            self.add_debug(
-                f"Профиль - {widget.text()} начал загрузку видео {Path(self.file_path).name}"
-            )
-            relative_path = "_internal/instagram_scripts/upload.js"
-            absolute_path = os.path.abspath(relative_path)
-            print(absolute_path)
-            await self.farm.instagram.download_content(
-                profile_id=widget.objectName(),
-                file_path=str(self.file_path),
-                descript=descript,
-                js_file=absolute_path
-            )
-            self.completed += self.task_percent
-            self.progressBar.setValue(self.completed)
-            self.add_debug(
-                f"Профиль - {widget.text()} загрузил видео {Path(self.file_path).name}"
-            )
-        except Exception as e:
-            if "402 Payment Required" in str(e):
-                self.add_debug(f"Прокси профиля - {widget.text()} не оплачен")
-            elif "img[alt='Animated checkmark']" in str(e):
-                self.add_debug(f"Не удалось отследить профиля - {widget.text()} плохое соединение или ошибка загрузки")
-            else:
-                self.add_debug(f"Произошла ошибка - {str(e)}")
+        profile_id = widget.objectName()
+        file_name = Path(self.file_path).name
+        MAX_ATTEMPTS = 3
+        for attempt in range(1, MAX_ATTEMPTS + 1):
+            try:
+                self.add_debug(f"🔁 Попытка {attempt} загрузки: {widget.text()} → {file_name}")
+                relative_path = "_internal/instagram_scripts/upload.js"
+                absolute_path = os.path.abspath(relative_path)
+
+                await self.farm.instagram.download_content(
+                    profile_id=profile_id,
+                    file_path=str(self.file_path),
+                    descript=descript,
+                    js_file=absolute_path
+                )
+
+                self.completed += self.task_percent
+                self.progressBar.setValue(self.completed)
+                self.add_debug(f"✅ Профиль {widget.text()} успешно загрузил {file_name}")
+                return  # успешно — выходим
+            except Exception as e:
+                self.add_debug(f"⚠️ Ошибка на попытке {attempt} профиля {widget.text()}: {str(e)}")
+                if attempt == MAX_ATTEMPTS:
+                    raise
 
 
 
