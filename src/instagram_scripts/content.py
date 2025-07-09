@@ -38,6 +38,14 @@ class InstagramContent(InstagramContentAbstract):
     def __repr__(self) -> str:
         return f"InstagramContent(API_KEY={self.API_KEY}, _initialized={self._initialized})"
 
+    @classmethod
+    def get_node_path(cls):
+        base_dir = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
+        node_path = os.path.join(base_dir, "_internal", "playwright", "driver", "node.exe")
+        if not os.path.exists(node_path):
+            raise FileNotFoundError(f"Node.js (Playwright) не найден по пути: {node_path}")
+        return node_path
+
     async def download_content(
         self, profile_id: str, descript: str, file_path: str, js_file
     ) -> None:
@@ -48,14 +56,9 @@ class InstagramContent(InstagramContentAbstract):
         :param file_path: абсолютный путь к файлу типа str
         :return: None
         """
-        def get_node_path():
-            base_dir = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
-            node_path = os.path.join(base_dir, "_internal", "playwright", "driver", "node.exe")
-            if not os.path.exists(node_path):
-                raise FileNotFoundError(f"Node.js (Playwright) не найден по пути: {node_path}")
-            return node_path
         instagram_logging.info("Запуск функции download_content")
-        async with async_playwright() as pl:
+        pl = await async_playwright().start()
+        try:
             instagram_logging.info("инициализация Gologin класс")
             gl = GoLogin(
                 {
@@ -109,7 +112,7 @@ class InstagramContent(InstagramContentAbstract):
                 try:
                     print(file_path)
                     print(js_file)
-                    node_path = get_node_path()
+                    node_path = self.get_node_path()
                     instagram_logging.info(f"Используемый Node.js: {node_path}")
                     instagram_logging.info("Загрузка видео")
                     response = requests.get(f"http://{debug_address}/json/version")
@@ -151,7 +154,7 @@ class InstagramContent(InstagramContentAbstract):
                     timeout=900000,
                 )
                 if next_button:
-                    await next_button.click()
+                    await next_button.click(force=True)
                 else:
                     raise Exception("Кнопка 'Next' не найдена")
 
@@ -160,7 +163,7 @@ class InstagramContent(InstagramContentAbstract):
                     timeout=900000,
                 )
                 if next_button_2:
-                    await next_button_2.click()
+                    await next_button_2.click(force=True)
                 else:
                     raise Exception("2 кнопка 'Next' не найдена")
                 fill_descript = await page.wait_for_selector(
@@ -175,7 +178,7 @@ class InstagramContent(InstagramContentAbstract):
                         timeout=900000,
                     )
                     if share:
-                        await share.click()
+                        await share.click(force=True)
                     else:
                         Exception("Кнопка 'Share' не найдена")
                 else:
@@ -210,3 +213,7 @@ class InstagramContent(InstagramContentAbstract):
             except Exception as e:
                 instagram_logging.critical(f"Ошибка скрипта: {str(e)}")
                 raise
+        except Exception as e:
+            raise e
+        finally:
+            await pl.stop()

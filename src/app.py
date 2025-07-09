@@ -394,9 +394,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
         :return: None
         """
         layout = self.scrollAreaWidgetContents.layout()
-        if not layout:
-            return
-        elif not self.check_any_profiles(layout):
+        if not layout or not self.check_any_profiles(layout):
             return
         self.clear_debug()
         self.browser.setEnabled(False)
@@ -480,6 +478,9 @@ class ScriptWindow(QtWidgets.QMainWindow):
                     await self.instagram_download_content(descript=descript, widget=widget)
                     self.add_debug(f"✅ Профиль {widget.text()} успешно завершил загрузку.")
                 except Exception as e:
+                    if "Target page, context or browser has been closed" in str(e):
+                        self.add_debug(f"⚠️ Браузер {widget.text()} был закрыт вручную — переход к следующему")
+                        return
                     self.add_debug(f"❌ Профиль {widget.text()} завершился с ошибкой: {str(e)}")
 
         tasks = [asyncio.create_task(run_with_limit(widget)) for widget in selected_widgets]
@@ -519,8 +520,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
             except Exception as e:
                 self.add_debug(f"⚠️ Ошибка на попытке {attempt} профиля {widget.text()}: {str(e)}")
                 if "Target page, context or browser has been closed" in str(e):
-                    self.add_debug(f"⚠️ Браузер {widget.text()} был закрыт вручную")
-                    return
+                    raise e
                 elif attempt == MAX_ATTEMPTS:
                     raise
 
