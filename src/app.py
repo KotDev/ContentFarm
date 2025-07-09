@@ -490,6 +490,11 @@ class ScriptWindow(QtWidgets.QMainWindow):
         self.farm.gl.refreshProfilesFingerprint(profileIds=profile_ids)
         self.InstagramButton.setEnabled(True)
 
+    def update_progress_safe(self, value):
+        QMetaObject.invokeMethod(
+            self.progressBar, "setValue", Qt.QueuedConnection, Q_ARG(int, value)
+        )
+
     async def instagram_download_content(self, descript: str, widget):
         """
         Метод загрузки instagram видео
@@ -514,7 +519,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
                 )
 
                 self.completed += self.task_percent
-                self.progressBar.setValue(self.completed)
+                self.update_progress_safe(self.completed)
                 self.add_debug(f"✅ Профиль {widget.text()} успешно загрузил {file_name}")
                 return  # успешно — выходим
             except Exception as e:
