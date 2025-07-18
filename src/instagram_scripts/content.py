@@ -58,21 +58,21 @@ class InstagramContent(InstagramContentAbstract):
         """
         instagram_logging.info("Запуск функции download_content")
         pl = await async_playwright().start()
+        instagram_logging.info("инициализация Gologin класс")
+        gl = GoLogin(
+            {
+                f"token": self.API_KEY,
+                "profile_id": profile_id,
+                "executablePath": "chromium",
+                "browserType": "chrome",
+                "auto_update_browser": False,
+                "launcherProperties": {  # Важно!
+                    "headless": False,  # Принудительно отключаем headless
+                    "args": ["--start-maximized"],  # Доп. аргументы (опционально)
+                },
+            }
+        )
         try:
-            instagram_logging.info("инициализация Gologin класс")
-            gl = GoLogin(
-                {
-                    f"token": self.API_KEY,
-                    "profile_id": profile_id,
-                    "executablePath": "chromium",
-                    "browserType": "chrome",
-                    "auto_update_browser": False,
-                    "launcherProperties": {  # Важно!
-                        "headless": False,  # Принудительно отключаем headless
-                        "args": ["--start-maximized"],  # Доп. аргументы (опционально)
-                    },
-                }
-            )
             instagram_logging.info("запуск браузера")
             try:
                 debug_address = gl.start()
@@ -101,11 +101,11 @@ class InstagramContent(InstagramContentAbstract):
                     f"Переход по адрессу {debug_address + '/' + self.URL}"
                 )
                 await page.click(
-                    'svg path[d^="M2 12"]:has(~ line[x1="6.545"])',
+                    'svg[aria-label="New post"] path',
                     timeout=900000,
                 )
                 await page.wait_for_selector(
-                    "// *[text() = 'Select from computer']",
+                    '//*[translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "select from computer"]',
                     timeout=800000,
                     state="visible",
                 )
@@ -193,7 +193,6 @@ class InstagramContent(InstagramContentAbstract):
                         instagram_logging.info("Видео успешно загружено")
                         break
                     except Exception as e:
-
                         try_again_button = page.locator("// *[text() = 'Try again']")
                         if await try_again_button.is_visible(timeout=5000):
                             instagram_logging.info("Обнаружена ошибка - кликаем Try again")
@@ -217,3 +216,4 @@ class InstagramContent(InstagramContentAbstract):
             raise e
         finally:
             await pl.stop()
+            gl.stop()

@@ -470,7 +470,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
         self.task_percent = 100 // len(selected_widgets)
         descript = self.plainTextEdit.toPlainText().strip()
 
-        semaphore = asyncio.Semaphore(2)
+        semaphore = asyncio.Semaphore(5)
 
         async def run_with_limit(widget):
             async with semaphore:
@@ -521,7 +521,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
                 self.completed += self.task_percent
                 self.update_progress_safe(self.completed)
                 self.add_debug(f"✅ Профиль {widget.text()} успешно загрузил {file_name}")
-                return  # успешно — выходим
+                return
             except Exception as e:
                 self.add_debug(f"⚠️ Ошибка на попытке {attempt} профиля {widget.text()}: {str(e)}")
                 if "Target page, context or browser has been closed" in str(e):
