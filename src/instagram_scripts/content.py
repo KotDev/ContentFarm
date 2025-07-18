@@ -204,11 +204,6 @@ class InstagramContent(InstagramContentAbstract):
                 else:
                     instagram_logging.error("Превышено максимальное количество попыток")
                     raise Exception("Не удалось дождаться завершения загрузки")
-                try:
-                    gl.stop()
-                    instagram_logging.info("Браузер закрыт")
-                except Exception as e:
-                    instagram_logging.error(f"Ошибка при закрытии браузера: {str(e)}")
             except Exception as e:
                 instagram_logging.critical(f"Ошибка скрипта: {str(e)}")
                 raise
@@ -217,3 +212,4 @@ class InstagramContent(InstagramContentAbstract):
         finally:
             await pl.stop()
             gl.stop()
+            instagram_logging.info("Браузер закрыт")

@@ -524,7 +524,7 @@ class ScriptWindow(QtWidgets.QMainWindow):
                 return
             except Exception as e:
                 self.add_debug(f"⚠️ Ошибка на попытке {attempt} профиля {widget.text()}: {str(e)}")
-                if "Target page, context or browser has been closed" in str(e):
+                if "Target page, context or browser has been closed" in str(e) or "Не удалось дождаться завершения загрузки" in str(e):
                     raise e
                 elif attempt == MAX_ATTEMPTS:
                     raise
